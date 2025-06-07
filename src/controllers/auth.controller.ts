@@ -8,6 +8,10 @@ import {
   logoutUser,
 } from "../services/auth.service";
 
+interface AuthRequest extends Request {
+  user?: any;
+}
+
 export const registerController = async (
   req: Request,
   res: Response
@@ -23,6 +27,7 @@ export const registerController = async (
     }
     const { name, email, password, role } = req.body;
     const result = await registerUser({ name, email, password, role });
+
     res.status(200).json({
       message: "User registered successfully",
       data: result,
@@ -72,13 +77,26 @@ export const refreshController = async (req: Request, res: Response) => {
   }
 };
 
-export const logoutController = async (req: Request, res: Response) => {
+export const logoutController = async (req: AuthRequest, res: Response) => {
   try {
-    const { userId } = req.body;
+    const userId = req.user?.id;
     const result = await logoutUser(userId);
     res.status(200).json({
       message: "User logged out successfully",
       data: result,
+      success: true,
+    });
+  } catch (error: any) {
+    handleError(error, res);
+  }
+};
+
+export const userController = async (req: AuthRequest, res: Response) => {
+  try {
+    const user = req.user;
+    res.status(200).json({
+      message: "User retrieved successfully",
+      data: user,
       success: true,
     });
   } catch (error: any) {

@@ -4,7 +4,9 @@ import {
   loginController,
   refreshController,
   logoutController,
+  userController,
 } from "../../controllers/auth.controller";
+import { authMiddleware } from "../../middlewares/auth.middleware";
 import {
   registerValidation,
   loginValidation,
@@ -16,6 +18,7 @@ const router: Router = express.Router();
 router.post("/register", registerValidation, registerController);
 router.post("/login", loginValidation, loginController);
 router.post("/refresh", refreshController);
-router.post("/logout", logoutController);
+router.post("/logout", authMiddleware, logoutController);
+router.get("/user", authMiddleware, userController);
 
 export default router;
