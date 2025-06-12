@@ -10,7 +10,7 @@ logger.info("Starting server...");
 
 // Normalize and set the port
 const port = normalizePort(process.env.PORT || "3001");
-const websocketPort = normalizePort(process.env.WEBSOCKET_PORT || "8081");
+const websocketPort = normalizePort(process.env.WEBSOCKET_PORT || "8082");
 app.set("port", port);
 
 const server = http.createServer(app);

@@ -1,16 +1,10 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { handleError } from "../utils/error.handler";
 import { validationResult } from "express-validator";
-import {
-  registerUser,
-  loginUser,
-  refreshAccessToken,
-  logoutUser,
-} from "../services/auth.service";
+import AuthService from "@/services/auth.service";
+import { AuthRequest } from "@/interfaces/auth";
 
-interface AuthRequest extends Request {
-  user?: any;
-}
+const authService = new AuthService();
 
 export const registerController = async (
   req: Request,
@@ -24,9 +18,10 @@ export const registerController = async (
         errors: errors.array(),
         success: false,
       });
+      return;
     }
-    const { name, email, password, role } = req.body;
-    const result = await registerUser({ name, email, password, role });
+    const { name, email, password } = req.body;
+    const result = await authService.registerUser({ name, email, password });
 
     res.status(200).json({
       message: "User registered successfully",
@@ -38,7 +33,10 @@ export const registerController = async (
   }
 };
 
-export const loginController = async (req: Request, res: Response) => {
+export const loginController = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -47,9 +45,10 @@ export const loginController = async (req: Request, res: Response) => {
         errors: errors.array(),
         success: false,
       });
+      return; // Add return here
     }
     const { email, password } = req.body;
-    const { accessToken, refreshToken, user } = await loginUser(
+    const { accessToken, refreshToken, user } = await authService.loginUser(
       email,
       password
     );
@@ -63,10 +62,13 @@ export const loginController = async (req: Request, res: Response) => {
   }
 };
 
-export const refreshController = async (req: Request, res: Response) => {
+export const refreshController = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { refreshToken } = req.body;
-    const { accessToken } = await refreshAccessToken(refreshToken);
+    const { accessToken } = await authService.refreshAccessToken(refreshToken);
     res.status(200).json({
       message: "Access token refreshed successfully",
       data: { accessToken },
@@ -77,10 +79,21 @@ export const refreshController = async (req: Request, res: Response) => {
   }
 };
 
-export const logoutController = async (req: AuthRequest, res: Response) => {
+export const logoutController = async (
+  req: AuthRequest,
+  res: Response
+): Promise<void> => {
   try {
-    const userId = req.user?.id;
-    const result = await logoutUser(userId);
+    if (!req.user) {
+      res.status(401).json({
+        message: "User not authenticated",
+        success: false,
+      });
+      return;
+    }
+
+    const userId = req.user.id;
+    const result = await authService.logoutUser(userId);
     res.status(200).json({
       message: "User logged out successfully",
       data: result,
@@ -91,12 +104,23 @@ export const logoutController = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const userController = async (req: AuthRequest, res: Response) => {
+export const userController = async (
+  req: AuthRequest,
+  res: Response
+): Promise<void> => {
   try {
-    const user = req.user;
+    if (!req.user) {
+      res.status(401).json({
+        message: "User not authenticated",
+        success: false,
+      });
+      return;
+    }
+
+    const userData = await authService.getUser(req.user.id);
     res.status(200).json({
       message: "User retrieved successfully",
-      data: user,
+      data: userData,
       success: true,
     });
   } catch (error: any) {

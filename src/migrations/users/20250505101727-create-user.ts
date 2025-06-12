@@ -1,6 +1,5 @@
-// migrations/20230506000000-create-user.ts
 import { QueryInterface, DataTypes } from "sequelize";
-import { Role } from "../enums/role.enum";
+import { Role } from "@/enums/role.enum";
 
 module.exports = {
   up: async (queryInterface: QueryInterface) => {
@@ -42,10 +41,12 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
       },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
       },
     });
   },

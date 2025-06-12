@@ -1,17 +1,17 @@
 import express from "express";
+import { type Router } from "express";
+import { authMiddleware } from "@/middlewares/auth.middleware";
+import {
+  registerValidation,
+  loginValidation,
+} from "@/validation/auth.validation";
 import {
   registerController,
   loginController,
   refreshController,
   logoutController,
   userController,
-} from "../../controllers/auth.controller";
-import { authMiddleware } from "../../middlewares/auth.middleware";
-import {
-  registerValidation,
-  loginValidation,
-} from "../../validation/auth.validation";
-import { type Router } from "express";
+} from "@/controllers/auth.controller";
 
 const router: Router = express.Router();
 

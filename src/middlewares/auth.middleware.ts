@@ -1,9 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import { decodeToken } from "../utils/jwt";
-
-interface AuthRequest extends Request {
-  user?: any;
-}
+import { Response, NextFunction } from "express";
+import { verifyAccessToken } from "../utils/jwt";
+import { AuthRequest } from "@/interfaces/auth";
 
 export const authMiddleware = (
   req: AuthRequest,
@@ -19,7 +16,7 @@ export const authMiddleware = (
   }
 
   try {
-    const decoded = decodeToken(token);
+    const decoded = verifyAccessToken(token);
     req.user = decoded;
     next();
   } catch (err) {

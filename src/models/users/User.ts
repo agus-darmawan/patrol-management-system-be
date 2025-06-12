@@ -1,17 +1,7 @@
 import { Model, DataTypes } from "sequelize";
-import sequelize from "../config/database";
+import sequelize from "../../config/database";
 
-class User extends Model {
-  public id!: number;
-  public name!: string;
-  public email!: string;
-  public password!: string;
-  public role!: string;
-  public active!: boolean;
-  public createdAt!: Date;
-  public updatedAt!: Date;
-}
-
+class User extends Model {}
 User.init(
   {
     id: {
@@ -39,14 +29,6 @@ User.init(
     active: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
     },
   },
   {

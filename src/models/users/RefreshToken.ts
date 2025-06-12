@@ -1,14 +1,7 @@
 import { Model, DataTypes } from "sequelize";
-import sequelize from "../config/database";
+import sequelize from "../../config/database";
 
-class RefreshToken extends Model {
-  public id!: number;
-  public userId!: number;
-  public token!: string;
-  public expiresAt!: Date;
-  public createdAt!: Date;
-  public updatedAt!: Date;
-}
+class RefreshToken extends Model {}
 
 RefreshToken.init(
   {
@@ -32,14 +25,6 @@ RefreshToken.init(
     expiresAt: {
       type: DataTypes.DATE,
       allowNull: false,
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
     },
   },
   {
