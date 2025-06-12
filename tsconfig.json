@@ -1,41 +1,41 @@
 {
-  "compilerOptions": {
-    "removeComments": false,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "declaration": true,
-    "esModuleInterop": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noImplicitThis": true,
-    "noUnusedParameters": true,
-    "importHelpers": true,
-    "noEmitHelpers": true,
-    "newLine": "lf",
-    "resolveJsonModule": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "pretty": true,
-    "target": "ESNext",
-    "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "outDir": "dist",
-    "rootDir": "./src",
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": ["*"]
-    }
-  },
-  "formatCodeOptions": {
-    "indentSize": 2,
-    "tabSize": 2
-  },
-  "include": ["./src/**/*", "./src/**/*.json"],
-  "ts-node": {
-    "require": ["tsconfig-paths/register"]
-  },
-  "exclude": ["node_modules", "dist/"]
+ "compilerOptions": {
+  "removeComments": false,
+  "preserveConstEnums": true,
+  "sourceMap": true,
+  "declaration": true,
+  "esModuleInterop": true,
+  "noImplicitAny": true,
+  "noImplicitReturns": true,
+  "strictNullChecks": true,
+  "noUnusedLocals": true,
+  "noImplicitThis": true,
+  "noUnusedParameters": true,
+  "importHelpers": true,
+  "noEmitHelpers": true,
+  "newLine": "lf",
+  "resolveJsonModule": true,
+  "module": "commonjs",
+  "moduleResolution": "node",
+  "pretty": true,
+  "target": "ESNext",
+  "allowJs": true,
+  "forceConsistentCasingInFileNames": true,
+  "strict": true,
+  "outDir": "dist",
+  "rootDir": "./",
+  "baseUrl": "./src",
+  "paths": {
+   "@/*": ["*"]
+  }
+ },
+ "formatCodeOptions": {
+  "indentSize": 2,
+  "tabSize": 2
+ },
+ "include": ["./src/**/*", "./src/**/*.json", "./bin/www.ts"],
+ "ts-node": {
+  "require": ["tsconfig-paths/register"]
+ },
+ "exclude": ["node_modules", "dist/"]
 }
