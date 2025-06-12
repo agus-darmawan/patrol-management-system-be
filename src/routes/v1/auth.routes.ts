@@ -2,15 +2,15 @@ import express from "express";
 import { type Router } from "express";
 import { authMiddleware } from "@/middlewares/auth.middleware";
 import {
-  registerValidation,
-  loginValidation,
+ registerValidation,
+ loginValidation,
 } from "@/validation/auth.validation";
 import {
-  registerController,
-  loginController,
-  refreshController,
-  logoutController,
-  userController,
+ registerController,
+ loginController,
+ refreshController,
+ logoutController,
+ userController,
 } from "@/controllers/auth.controller";
 
 const router: Router = express.Router();

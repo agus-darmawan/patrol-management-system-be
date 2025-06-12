@@ -17,10 +17,10 @@ collectDefaultMetrics();
 
 app.use("/api", v1Routes);
 app.get("/", (_req: Request, res: Response) => {
-  res.status(200).json({
-    message: "Welcome to the API",
-    version: "1.0.0",
-  });
+ res.status(200).json({
+  message: "Welcome to the API",
+  version: "1.0.0",
+ });
 });
 app.use(notFoundHandler);
 
